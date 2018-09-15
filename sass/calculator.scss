@@ -1,0 +1,85 @@
+ul,
+li,
+div {
+    margin: 0;
+    padding: 0;
+}
+ul,
+li {
+    list-style-type: none;
+}
+/* calculator */
+$side: 60px;
+@mixin alphaWrap($color, $alpha) {
+    &:hover:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: rgba($color: $color, $alpha: $alpha);
+    }
+}
+#calculator {
+    ul {
+        $radius: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        width: $side * 4;
+        margin: {
+            left: auto;
+            right: auto;
+            top: 50px;
+        }
+        border-radius: $radius;
+        box-shadow: 2px 2px 20px 2px #888;
+        background-color: #dddcdd;
+        li {
+            position: relative;
+            width: $side;
+            height: $side;
+            font-size: $side/2.5;
+            text-align: center;
+            line-height: $side;
+            border: 1px solid #99989a;
+            box-sizing: border-box;
+            cursor: pointer;
+            @include alphaWrap(#000, 0.2);
+        }
+        .express,
+        .result {
+            $lh: $side/1.5;
+            width: $side * 4;
+            height: $lh;
+            color: #fff;
+            text-align: right;
+            line-height: $lh;
+            background-color: #99989a;
+            cursor: text;
+        }
+        .express {
+            border-radius: $radius $radius 0 0;
+        }
+        .operator {
+            color: #fff;
+            background-color: #ff9e1d;
+        }
+        // 特殊样式
+        .doubleWidth {
+            width: $side * 2;
+        }
+        .leftRadius {
+            border-bottom-left-radius: $radius;
+        }
+        .rightRadius {
+            border-bottom-right-radius: $radius;
+        }
+        @at-root {
+            body {
+                background: #dcdbdd;
+            }
+        }
+    }
+}
