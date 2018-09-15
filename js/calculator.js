@@ -61,6 +61,7 @@ class Calculator {
 
         // point;
         this.target.point.onclick = () => {
+            console.log(this.arr);
             (this.sym && (this.getPoint('num2'), 1)) || this.getPoint('num1');
         };
 
@@ -106,7 +107,7 @@ class Calculator {
         } else {
             this[num] = '0.';
         }
-        this.showData('result', [this.num1]);
+        this.showData('result', [this[num]]);
     }
 
     /**
@@ -156,7 +157,8 @@ class Calculator {
      * @memberof Calculator
      */
     pushA(str) {
-        this.arr.push(this[str]);
+        const temp = (str === 'sym' && this[str]) || this[str] * 1 + '';
+        this.arr.push(temp);
         return this;
     }
 
@@ -218,18 +220,13 @@ class Calculator {
      * @returns Number类型
      * @memberof Calculator
      */
-    floatMul(num1, num2, m = 0) {
+    floatMul(num1, num2) {
         const check = function(str) {
-            if (str.indexOf('.') !== -1) {
-                return str.split('.')[1].length;
-            } else {
-                return 0;
-            }
+            return (str.indexOf('.') !== -1 && str.split('.')[1].length) || 0;
         };
         //num1 * 1 + ''为了去除无意义的0和小数点
         const [s1, s2] = [num1 * 1 + '', num2 * 1 + ''];
-        m = check(s1) + check(s2);
-        return (s1.replace('.', '') * s2.replace('.', '')) / 10 ** m;
+        return (s1.replace('.', '') * s2.replace('.', '')) / 10 ** (check(s1) + check(s2));
     }
 
     /**
